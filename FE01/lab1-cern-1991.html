@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab 1 - CERN 1991 (Tela de Fósforo Verde)</title>
+<style>
+  :root{
+    --verde:#33ff33;
+    --verde-escuro:#0f8f0f;
+    --fundo:#041004;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    background:#000;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    font-family:"Courier New",Courier,monospace;
+  }
+  /* "Monitor" CRT */
+  .monitor{
+    position:relative;
+    width:100%;
+    max-width:820px;
+    background:var(--fundo);
+    color:var(--verde);
+    border:14px solid #2a2a24;
+    border-radius:24px;
+    box-shadow:0 0 0 3px #111, 0 0 40px rgba(51,255,51,.25), inset 0 0 90px rgba(0,0,0,.9);
+    padding:28px 32px;
+    overflow:hidden;
+    text-shadow:0 0 6px rgba(51,255,51,.75);
+    font-size:17px;
+    line-height:1.55;
+  }
+  /* Linhas de varredura */
+  .monitor::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:repeating-linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0) 2px,rgba(0,0,0,.28) 3px);
+    pointer-events:none;
+  }
+  /* Brilho/vinheta */
+  .monitor::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(ellipse at center,rgba(51,255,51,.07) 0%,rgba(0,0,0,.55) 100%);
+    pointer-events:none;
+    animation:flicker 4s infinite;
+  }
+  @keyframes flicker{
+    0%,100%{opacity:1}
+    45%{opacity:.92}
+    50%{opacity:.8}
+    55%{opacity:.95}
+  }
+  h1{
+    margin:0 0 6px;
+    font-size:1.6rem;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    border-bottom:2px dashed var(--verde-escuro);
+    padding-bottom:8px;
+  }
+  h2{
+    font-size:1.05rem;
+    margin:22px 0 4px;
+    text-transform:uppercase;
+  }
+  h2::before{content:"> "}
+  p{margin:6px 0}
+  a{
+    color:var(--verde);
+    text-decoration:underline;
+    font-weight:bold;
+  }
+  a:hover{
+    background:var(--verde);
+    color:var(--fundo);
+    text-shadow:none;
+  }
+  ul{list-style:none;padding:0;margin:6px 0}
+  li::before{content:"[*] ";color:var(--verde-escuro)}
+  .rodape{
+    margin-top:24px;
+    border-top:2px dashed var(--verde-escuro);
+    padding-top:8px;
+    font-size:.9rem;
+    color:#22cc22;
+  }
+  .cursor{
+    display:inline-block;
+    width:10px;
+    height:1.1em;
+    background:var(--verde);
+    vertical-align:text-bottom;
+    margin-left:4px;
+    animation:piscar 1s steps(1) infinite;
+  }
+  @keyframes piscar{50%{opacity:0}}
+  ::selection{background:var(--verde);color:var(--fundo)}
+</style>
+</head>
+<body>
+  <main class="monitor">
+    <h1>World Wide Web</h1>
+    <p>Projeto de hipertexto em rede, CERN, Genebra, 1991.</p>
+
+    <h2>O que é a Web?</h2>
+    <p>
+      A WWW é uma iniciativa para buscar informação por hipermídia em redes
+      de longa distância. O objetivo é permitir que pesquisadores de qualquer
+      lugar consultem documentos ligados entre si, sem precisar saber onde
+      cada arquivo está guardado.
+    </p>
+
+    <h2>Como navegar</h2>
+    <ul>
+      <li><a href="#sobre">Sobre o projeto</a></li>
+      <li><a href="#resumo">Resumo dos conceitos</a></li>
+      <li><a href="#navegadores">Programas navegadores</a></li>
+      <li><a href="#servidores">Servidores de informação</a></li>
+      <li><a href="#contato">Como colaborar</a></li>
+    </ul>
+
+    <h2 id="sobre">Sobre o projeto</h2>
+    <p>
+      Documentos são escritos em HTML e ligados por hiperlinks. Cada
+      documento tem um endereço único, que depois ficou conhecido como URL.
+    </p>
+
+    <h2 id="resumo">Resumo dos conceitos</h2>
+    <ul>
+      <li>Hipertexto: texto com ligações para outros textos.</li>
+      <li>HTTP: protocolo simples para pedir e receber documentos.</li>
+      <li>HTML: linguagem de marcação para escrever as páginas.</li>
+      <li>URL: endereço que identifica cada recurso na rede.</li>
+    </ul>
+
+    <h2 id="navegadores">Programas navegadores</h2>
+    <p>Navegadores em modo texto funcionam em qualquer terminal.</p>
+
+    <h2 id="servidores">Servidores de informação</h2>
+    <p>Qualquer máquina na rede pode servir páginas para os demais.</p>
+
+    <h2 id="contato">Como colaborar</h2>
+    <p>Envie sugestões para a equipe do projeto.</p>
+
+    <div class="rodape">
+      Última atualização: 1991 &middot; Terminal ONLINE
+      <span class="cursor"></span>
+    </div>
+  </main>
+</body>
+</html>

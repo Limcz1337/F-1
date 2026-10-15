@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab 2 - Fetch e JSON (Web 2.0)</title>
+<style>
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+    background:#f1f5f9;
+    color:#1e293b;
+    padding:24px 16px;
+  }
+  .container{max-width:900px;margin:0 auto}
+  h1{margin:0 0 4px}
+  .sub{margin:0 0 16px;color:#64748b}
+  .barra{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+  button{
+    background:#2563eb;
+    color:#fff;
+    border:0;
+    padding:10px 16px;
+    border-radius:8px;
+    font-size:1rem;
+    cursor:pointer;
+  }
+  button:hover{background:#1d4ed8}
+  button:disabled{background:#94a3b8;cursor:not-allowed}
+  button.sec{background:#e2e8f0;color:#1e293b}
+  button.sec:hover{background:#cbd5e1}
+  #status{margin:8px 0 16px;font-weight:600}
+  .erro{color:#b91c1c}
+  .ok{color:#15803d}
+  .grade{
+    display:grid;
+    gap:12px;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  }
+  .cartao{
+    background:#fff;
+    border:1px solid #e2e8f0;
+    border-radius:12px;
+    padding:14px;
+    box-shadow:0 1px 3px rgba(0,0,0,.08);
+  }
+  .cartao h3{margin:0 0 4px;font-size:1.05rem}
+  .cartao p{margin:2px 0;font-size:.92rem;color:#475569;word-break:break-word}
+  .cartao .tag{
+    display:inline-block;
+    background:#dbeafe;
+    color:#1d4ed8;
+    border-radius:999px;
+    padding:1px 10px;
+    font-size:.75rem;
+    margin-bottom:6px;
+  }
+  details{margin-top:16px}
+  pre{
+    background:#0f172a;
+    color:#a7f3d0;
+    padding:12px;
+    border-radius:8px;
+    overflow:auto;
+    max-height:260px;
+    font-size:.8rem;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Lab 2: Requisição assíncrona com Fetch + JSON</h1>
+  <p class="sub">Os dados chegam da API e entram na tela sem recarregar a página.</p>
+
+  <div class="barra">
+    <button id="btn-carregar">Carregar usuários</button>
+    <button id="btn-limpar" class="sec">Limpar</button>
+  </div>
+
+  <div id="status" role="status" aria-live="polite">Clique em "Carregar usuários".</div>
+  <div id="lista" class="grade"></div>
+
+  <details>
+    <summary>Ver JSON bruto recebido</summary>
+    <pre id="json-bruto">(nenhum dado ainda)</pre>
+  </details>
+</div>
+
+<script>
+  const URL_API = "https://jsonplaceholder.typicode.com/users";
+
+  const btnCarregar = document.getElementById("btn-carregar");
+  const btnLimpar = document.getElementById("btn-limpar");
+  const statusEl = document.getElementById("status");
+  const listaEl = document.getElementById("lista");
+  const jsonEl = document.getElementById("json-bruto");
+
+  function escapar(texto) {
+    const div = document.createElement("div");
+    div.textContent = texto;
+    return div.innerHTML;
+  }
+
+  function mostrarStatus(msg, classe) {
+    statusEl.textContent = msg;
+    statusEl.className = classe || "";
+  }
+
+  function desenharUsuarios(usuarios) {
+    listaEl.innerHTML = usuarios.map(function (u) {
+      return (
+        '<article class="cartao">' +
+          '<span class="tag">#' + escapar(String(u.id)) + '</span>' +
+          '<h3>' + escapar(u.name) + '</h3>' +
+          '<p>👤 ' + escapar(u.username) + '</p>' +
+          '<p>✉️ ' + escapar(u.email) + '</p>' +
+          '<p>🏢 ' + escapar(u.company.name) + '</p>' +
+          '<p>📍 ' + escapar(u.address.city) + '</p>' +
+        '</article>'
+      );
+    }).join("");
+  }
+
+  async function carregarUsuarios() {
+    btnCarregar.disabled = true;
+    mostrarStatus("Carregando dados da API...");
+    try {
+      const resposta = await fetch(URL_API);
+      if (!resposta.ok) {
+        throw new Error("Resposta HTTP " + resposta.status);
+      }
+      const dados = await resposta.json();
+      desenharUsuarios(dados);
+      jsonEl.textContent = JSON.stringify(dados.slice(0, 2), null, 2) + "\n... (mostrando 2 de " + dados.length + ")";
+      mostrarStatus("✅ " + dados.length + " usuários carregados sem recarregar a página.", "ok");
+    } catch (erro) {
+      mostrarStatus("❌ Não foi possível carregar: " + erro.message, "erro");
+    } finally {
+      btnCarregar.disabled = false;
+    }
+  }
+
+  function limpar() {
+    listaEl.innerHTML = "";
+    jsonEl.textContent = "(nenhum dado ainda)";
+    mostrarStatus('Clique em "Carregar usuários".');
+  }
+
+  btnCarregar.addEventListener("click", carregarUsuarios);
+  btnLimpar.addEventListener("click", limpar);
+</script>
+</body>
+</html>

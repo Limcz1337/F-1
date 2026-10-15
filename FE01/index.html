@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Máquina do Tempo da Web</title>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"Máquina do Tempo da Web","inLanguage":"pt-BR","about":["Web 1.0","Web 2.0","Web 3.0"]}
+</script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;transition:background .4s}
+.wrap{max-width:960px;margin:0 auto;padding:16px}
+.switch{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.switch button,.vote-btn,.tool{cursor:pointer;font:inherit}
+.marquee{display:none;overflow:hidden;white-space:nowrap}
+.marquee span{display:inline-block;padding-left:100%;animation:scroll 12s linear infinite}
+@keyframes scroll{to{transform:translateX(-100%)}}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card .ico{font-size:2rem}
+.bar{height:16px;margin:4px 0 12px}
+.bar i{display:block;height:100%;width:0;transition:width .5s}
+.counter,.badge,.stamp{display:none}
+.hidden{display:none}
+@media print{
+  body *{visibility:hidden}
+  #ata,#ata *{visibility:visible}
+  #ata{position:absolute;inset:0;display:block!important;background:#fff;color:#000;padding:24px;font-family:Georgia,serif}
+}
+#ata{display:none}
+#ata table{border-collapse:collapse;width:100%;margin:16px 0}
+#ata th,#ata td{border:1px solid #000;padding:6px 10px;text-align:left}
+
+/* ============ WEB 1.0 (1995) ============ */
+body.w1{background:#c0c0c0 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Crect width='4' height='4' fill='%23b4b4b4'/%3E%3Crect x='4' y='4' width='4' height='4' fill='%23b4b4b4'/%3E%3C/svg%3E");color:#000;font-family:"Times New Roman",Times,serif;font-size:16px}
+.w1 h1{font-size:2.2rem;color:#0000ee;text-align:center;text-decoration:underline;margin:8px 0}
+.w1 h2,.w1 h3{color:#800000;margin:8px 0}
+.w1 .marquee{display:block;background:#000080;color:#ffff00;font-family:"Courier New",monospace;padding:4px;border:3px ridge #fff}
+.w1 .switch button,.w1 .vote-btn,.w1 .tool{background:#c0c0c0;border:3px outset #fff;padding:4px 10px;font-family:"Courier New",monospace;color:#000;border-radius:0}
+.w1 .switch button:active,.w1 .vote-btn:active,.w1 .tool:active{border-style:inset}
+.w1 .switch button.on{border-style:inset;background:#a0a0a0;font-weight:bold}
+.w1 .card,.w1 .panel{background:#fff;border:3px ridge #808080;padding:10px;border-radius:0}
+.w1 a{color:#0000ee}
+.w1 hr{border:0;border-top:2px groove #808080}
+.w1 .bar{background:#fff;border:2px inset #808080}.w1 .bar i{background:#000080}
+.w1 .counter{display:inline-block;background:#000;color:#0f0;font-family:"Courier New",monospace;padding:2px 8px;border:2px inset #888;letter-spacing:3px}
+.w1 .stamp{display:block;text-align:center;color:#f00;font-weight:bold;font-style:italic;margin:8px}
+.w1 .lead{text-align:center}
+
+/* ============ WEB 2.0 (2008) ============ */
+body.w2{background:linear-gradient(#e8f1fb,#f7fbff 40%,#fff);color:#333;font-family:"Lucida Grande",Verdana,Arial,sans-serif;font-size:15px}
+.w2 h1{font-size:2.4rem;color:#2a6ebb;margin:8px 0;text-shadow:0 2px 0 #fff,0 4px 6px rgba(0,0,0,.15)}
+.w2 h1::after{content:"beta";font-size:.8rem;background:#f68b1f;color:#fff;border-radius:10px;padding:2px 8px;margin-left:8px;vertical-align:super;text-shadow:none}
+.w2 h2,.w2 h3{color:#3b6ea5;margin:8px 0}
+.w2 .switch button,.w2 .vote-btn,.w2 .tool{background:linear-gradient(#7cc34a,#4f9a1e);border:1px solid #3d7d12;color:#fff;font-weight:bold;padding:8px 16px;border-radius:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 2px 4px rgba(0,0,0,.25);text-shadow:0 -1px 0 rgba(0,0,0,.3)}
+.w2 .switch button.on{background:linear-gradient(#4da3f0,#2a6ebb);border-color:#1d548f}
+.w2 .card,.w2 .panel{background:linear-gradient(#fff,#f1f6fb);border:1px solid #c9d9ea;border-radius:12px;padding:16px;box-shadow:0 4px 10px rgba(40,90,150,.15)}
+.w2 .card .ico{background:#2a6ebb;color:#fff;border-radius:50%;width:56px;height:56px;display:grid;place-items:center;box-shadow:inset 0 2px 4px rgba(255,255,255,.5)}
+.w2 .bar{background:#e3ebf3;border-radius:10px;box-shadow:inset 0 1px 3px rgba(0,0,0,.2);overflow:hidden}
+.w2 .bar i{background:linear-gradient(#8fd45a,#4f9a1e)}
+.w2 .badge{display:inline-block;background:#f68b1f;color:#fff;border-radius:4px;padding:2px 8px;font-size:.75rem;transform:rotate(-4deg);margin-left:8px;font-weight:bold}
+.w2 .lead{color:#555}
+
+/* ============ WEB 3.0 (2026) ============ */
+body.w3{background:radial-gradient(circle at 20% 10%,#2b1b6b,transparent 45%),radial-gradient(circle at 85% 80%,#0b5a6b,transparent 45%),#0a0b1a;color:#e8eaff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px}
+.w3 h1{font-size:2.6rem;margin:8px 0;background:linear-gradient(90deg,#7df9ff,#b388ff,#ff7ad9);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-.02em}
+.w3 h2,.w3 h3{color:#c9ccff;margin:8px 0;font-weight:600}
+.w3 .switch button,.w3 .vote-btn,.w3 .tool{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;padding:9px 16px;border-radius:999px;backdrop-filter:blur(10px);transition:.2s}
+.w3 .switch button:hover,.w3 .vote-btn:hover,.w3 .tool:hover{background:rgba(125,249,255,.2);box-shadow:0 0 18px rgba(125,249,255,.4)}
+.w3 .switch button.on{background:linear-gradient(90deg,#7df9ff55,#b388ff55);border-color:#7df9ff}
+.w3 .card,.w3 .panel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:20px;backdrop-filter:blur(16px);box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.w3 .bar{background:rgba(255,255,255,.1);border-radius:999px;overflow:hidden}
+.w3 .bar i{background:linear-gradient(90deg,#7df9ff,#b388ff,#ff7ad9)}
+.w3 .badge{display:inline-block;border:1px solid #7df9ff;color:#7df9ff;border-radius:999px;padding:2px 10px;font-size:.75rem;margin-left:8px}
+.w3 .lead{color:#aab0e0}
+</style>
+</head>
+<body class="w1">
+<div class="wrap">
+
+  <nav class="switch" aria-label="Escolha a fase da Web">
+    <button data-theme="w1" class="on">🕹️ Web 1.0 (1995)</button>
+    <button data-theme="w2">📱 Web 2.0 (2008)</button>
+    <button data-theme="w3">🧠 Web 3.0 (2026)</button>
+    <button class="tool" id="dial">🔊 Som Dial-Up</button>
+    <button class="tool" id="print">🖨️ Imprimir Projeto</button>
+  </nav>
+
+  <div class="marquee"><span>*** Bem-vindo à minha homepage!!! Você é o visitante número <b id="vis">000042</b> *** Melhor visualizado em 800x600 ***</span></div>
+
+  <header>
+    <h1 id="title">Máquina do Tempo da Web</h1>
+    <p class="lead" id="lead">Nostalgia dos anos 90: tabelas, hipertexto puro e fundo cinza.</p>
+    <span class="stamp">🚧 SITE EM CONSTRUÇÃO 🚧</span>
+    <span class="counter">Visitas: 000042</span>
+    <span class="badge">Novo!</span>
+  </header>
+  <hr>
+
+  <main>
+    <section class="grid" aria-label="Fases">
+      <article class="card"><div class="ico">🕹️</div><h3>Web 1.0</h3><p>Páginas estáticas, hipertexto e tabelas para layout.</p></article>
+      <article class="card"><div class="ico">📱</div><h3>Web 2.0</h3><p>Redes sociais, curtidas e AJAX sem recarregar a página.</p></article>
+      <article class="card"><div class="ico">🧠</div><h3>Web 3.0</h3><p>Dados conectados, web semântica e IA.</p></article>
+    </section>
+
+    <section class="panel" style="margin-top:16px" id="urna">
+      <h2>🗳️ Urna Escolar: qual versão ficou com o melhor visual?</h2>
+      <p class="lead">Peça para seus colegas votarem. Os votos ficam salvos neste navegador (LocalStorage).</p>
+      <div class="grid">
+        <button class="vote-btn" data-vote="w1">🕹️ Votar na Web 1.0</button>
+        <button class="vote-btn" data-vote="w2">📱 Votar na Web 2.0</button>
+        <button class="vote-btn" data-vote="w3">🧠 Votar na Web 3.0</button>
+      </div>
+      <h3 style="margin-top:16px">📊 Apuração em tempo real: <span id="total">0</span> votos <small id="meta"></small></h3>
+      <div id="results"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+        <button class="tool" id="ata-btn">🖨️ Imprimir Ata de Votação (PDF)</button>
+        <button class="tool" id="reset">🗑️ Zerar Urna</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<section id="ata" aria-hidden="true">
+  <h1 style="color:#000;background:none;-webkit-text-fill-color:#000">🏛️ Ata Oficial de Apuração • Feira de Tecnologia Escolar</h1>
+  <p><b>Disciplina:</b> Programação Front-End • <b>Projeto:</b> A Máquina do Tempo da Web</p>
+  <p>Data de emissão: <span id="ata-date">—</span></p>
+  <table>
+    <thead><tr><th>Versão da Web</th><th>Tecnologias</th><th>Votos</th><th>%</th></tr></thead>
+    <tbody id="ata-body"></tbody>
+  </table>
+  <p><b>🏆 Versão mais votada:</b> <span id="ata-win">Aguardando votos...</span></p>
+  <p style="margin-top:48px">______________________________<br>Representante da equipe de alunos</p>
+  <p style="margin-top:32px">______________________________<br>Professor(a) de Front-End</p>
+</section>
+
+<script>
+const KEY = "maquina-do-tempo-votos";
+const THEMES = {
+  w1:{n:"🕹️ Web 1.0 (Anos 90)",t:"HTML estático, tabelas, marquee",lead:"Nostalgia dos anos 90: tabelas, hipertexto puro e fundo cinza."},
+  w2:{n:"📱 Web 2.0 (Anos 2000)",t:"AJAX, DOM, JSON, feed social",lead:"Redes sociais, gradientes brilhantes e botões arredondados."},
+  w3:{n:"🧠 Web 3.0 (Contemporânea)",t:"Web semântica, Schema.org, IA",lead:"Dados conectados, vidro fosco e interface moderna."}
+};
+const MIN = 5;
+const $ = s => document.querySelector(s);
+
+function load(){
+  try{ const v = JSON.parse(localStorage.getItem(KEY)); if(v && typeof v==="object") return {w1:+v.w1||0,w2:+v.w2||0,w3:+v.w3||0}; }catch(e){}
+  return {w1:0,w2:0,w3:0};
+}
+function save(v){ try{ localStorage.setItem(KEY, JSON.stringify(v)); }catch(e){} }
+let votes = load();
+
+function setTheme(t){
+  document.body.className = t;
+  document.querySelectorAll(".switch [data-theme]").forEach(b=>b.classList.toggle("on", b.dataset.theme===t));
+  $("#lead").textContent = THEMES[t].lead;
+  try{ localStorage.setItem(KEY+"-tema", t); }catch(e){}
+}
+
+function render(){
+  const total = votes.w1+votes.w2+votes.w3;
+  $("#total").textContent = total;
+  $("#meta").textContent = total>=MIN ? "✅ mínimo de 5 votos atingido" : `(faltam ${MIN-total} para o mínimo de ${MIN})`;
+  $("#results").innerHTML = Object.keys(THEMES).map(k=>{
+    const p = total ? Math.round(votes[k]/total*100) : 0;
+    return `<div>${THEMES[k].n}: <b>${votes[k]}</b> votos (${p}%)</div><div class="bar"><i style="width:${p}%"></i></div>`;
+  }).join("");
+  $("#ata-body").innerHTML = Object.keys(THEMES).map(k=>{
+    const p = total ? Math.round(votes[k]/total*100) : 0;
+    return `<tr><td><b>${THEMES[k].n}</b></td><td>${THEMES[k].t}</td><td>${votes[k]}</td><td>${p}%</td></tr>`;
+  }).join("");
+  const max = Math.max(votes.w1,votes.w2,votes.w3);
+  const winners = Object.keys(THEMES).filter(k=>votes[k]===max);
+  $("#ata-win").textContent = total ? (winners.length>1 ? "Empate: "+winners.map(k=>THEMES[k].n).join(" e ") : THEMES[winners[0]].n) : "Aguardando votos...";
+}
+
+document.querySelectorAll(".switch [data-theme]").forEach(b=>b.addEventListener("click",()=>setTheme(b.dataset.theme)));
+document.querySelectorAll("[data-vote]").forEach(b=>b.addEventListener("click",()=>{ votes[b.dataset.vote]++; save(votes); render(); }));
+$("#reset").addEventListener("click",()=>{ if(confirm("Zerar todos os votos?")){ votes={w1:0,w2:0,w3:0}; save(votes); render(); } });
+function printAta(){ $("#ata-date").textContent = new Date().toLocaleString("pt-BR"); window.print(); }
+$("#ata-btn").addEventListener("click", printAta);
+$("#print").addEventListener("click", ()=>window.print());
+
+$("#dial").addEventListener("click",()=>{
+  const AC = window.AudioContext||window.webkitAudioContext; if(!AC) return;
+  const ctx = new AC(); let t = ctx.currentTime;
+  [[350,.3],[440,.3],[1200,.15],[2100,.15],[1200,.15],[2250,.2],[980,.15],[1650,.15],[600,.2],[2400,.25],[1800,.2],[900,.3]].forEach(([f,d])=>{
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = "square"; o.frequency.value = f; g.gain.value = .05;
+    o.connect(g).connect(ctx.destination); o.start(t); o.stop(t+d); t += d;
+  });
+});
+
+let saved = "w1"; try{ saved = localStorage.getItem(KEY+"-tema") || "w1"; }catch(e){}
+setTheme(THEMES[saved] ? saved : "w1");
+render();
+</script>
+</body>
+</html>
